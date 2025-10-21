@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import postgres from 'postgres';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
@@ -17,8 +18,8 @@ export async function GET() {
   
    
   try {
-  	return Response.json(await listInvoices());
+  	return NextResponse.json(await listInvoices());
   } catch (error) {
-  	return Response.json({ error }, { status: 500 });
+  	return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
